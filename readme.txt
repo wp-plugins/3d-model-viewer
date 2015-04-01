@@ -4,7 +4,7 @@ Donate link: http://www.joergviola.de
 Tags: 3d, webgl, threejs
 Requires at least: 4.0.0
 Tested up to: 4.1.1
-Stable tag: trunk
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,6 @@ None yet.
 
 == Changelog ==
 
-= 0.1 =
+= 1.0.0 =
 First version of the 3D plugin.
 Supports DAE files and extensive configuration of the stage.
