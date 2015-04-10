@@ -58,7 +58,9 @@ None yet.
 == Changelog ==
 
 = 1.1 =
-* CSS class and style and id for more than one stage on a page.
+* CSS class and style and parameters.
+* background opacity parameter. 
+* optional id parameter for more than one stage on a page.
 
 = 1.0.0 =
 First version of the 3D plugin.

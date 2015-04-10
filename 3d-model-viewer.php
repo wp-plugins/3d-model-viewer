@@ -4,7 +4,7 @@
  * Plugin Name: 3D Model Viewer
  * Plugin URI: https://wordpress.org/plugins/3d-model-viewer/
  * Description: The first live 3D plugin for wordpress
- * Version: 1.0.0
+ * Version: 1.1
  * Author: Joerg Viola
  * Author URI: http://www.joergviola.de
  */
