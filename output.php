@@ -1,8 +1,8 @@
 
-<div id="stage"></div>
+<div id="<?php echo $id ?>"<?php if ($cssClass) echo ' class="'.$cssClass.'"'?><?php if ($cssStyle) echo ' style="'.$cssStyle.'"'?>></div>
 
 <script>
-    stage = document.getElementById("stage");  
+    stage = document.getElementById("<?php echo $id ?>");  
 
 	width = <?php echo $width ?>;
 	height = <?php echo $height ?>;
@@ -13,9 +13,9 @@
 	camera.position.y = <?php echo $camera[1] ?>;
 	camera.position.z = <?php echo $camera[2] ?>;
 	
-	var renderer = new THREE.WebGLRenderer();
+	var renderer = new THREE.WebGLRenderer({ alpha: true });
 	renderer.setSize( width, height );
-	renderer.setClearColor( 0x<?php echo $background ?>);
+	renderer.setClearColor( 0x<?php echo $background ?>, <?php echo $opacity ?>);
 	stage.appendChild( renderer.domElement );	 
 
 	var directionalLight = new THREE.DirectionalLight( 0x<?php echo $directionalColor ?>, 1 );
@@ -41,12 +41,12 @@
 		}
 	};
 	var onError = function ( xhr ) {
-		alert("Fehler");
+		alert("Sorry, could not load the model.");
 	};
 	var texture = new THREE.Texture();
-	  var loader = new THREE.ColladaLoader();
-	  loader.options.convertUpAxis = true;
-	  loader.load('<?php echo $model ?>', function ( collada ) {
+	var loader = new THREE.ColladaLoader();
+	loader.options.convertUpAxis = true;
+	loader.load('<?php echo $model ?>', function ( collada ) {
 	  var dae = collada.scene;
 	  var skin = collada.skins[ 0 ];
 	  dae.position.set(<?php echo $modelPosition ?>);//x,z,y- if you think in blender dimensions ;)

@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: 3D Model Viewer
- * Plugin URI: http://www.joergviola.de
+ * Plugin URI: https://wordpress.org/plugins/3d-model-viewer/
  * Description: The first live 3D plugin for wordpress
  * Version: 1.0.0
  * Author: Joerg Viola
@@ -55,12 +55,16 @@ class WP_3D {
 		$width = self::get($atts['width'], '500');
 		$height = self::get($atts['height'], '300');
 		$background = self::get($atts['background'], 'ffffff');
+		$opacity = self::get($atts['opacity'], 1);
 		$modelPosition = self::get($atts['model-position'], '0,0,0');
 		$modelScale = self::get($atts['model-scale'], '1,1,1');
 		$ambient = self::get($atts['ambient'], '404040');
 		$directional = explode(':', self::get($atts['directional'], '1,1,1:ffffff'));
 		$directionalPosition = $directional[0];
 		$directionalColor = $directional[1];
+		$cssClass = self::get($atts['class']);
+		$cssStyle = self::get($atts['style']);
+		$id = self::get($atts['id'], 'stage');
 		
 		global $wpdb, $post;
 		$result = $wpdb->get_col($wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE guid LIKE '%%%s' and post_parent=%d;", $atts['model'], $post->ID ));

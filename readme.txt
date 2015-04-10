@@ -1,10 +1,10 @@
 === 3D Model Viewer ===
 Contributors: joergviola
 Donate link: http://www.joergviola.de
-Tags: 3d, webgl, threejs
+Tags: 3d, webgl, threejs, 3d model display, 3D model viewer, 3D Model Viewer WordPress, dae viewer
 Requires at least: 4.0.0
 Tested up to: 4.1.1
-Stable tag: 1.0.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,14 +32,18 @@ Here are the arguments to this short code:
 * model: name of the model file in the media gallery. Mandatory. 
 * width, height: Size of the 3d stage. Optional, default is 500x300.
 * background: Background color. Optional, default is "ffffff".
+* opacity: Background opacity. Optional, default is 1.
 * ambient: Color of ambient light. Optional, default is "404040".
 * directional: Direction and color of directional light source. Optional, default is "1,1,1:ffffff"
 * model-position: Point of origin of the model. Optional, default is "0,0,0".
 * model-scale: Scale of the model. Optional, default is "1,1,1".
+* class: CSS class of div around canvas. Optional, no default.
+* style: CSS style of div around canvas. Optional, no default.
+* id: id of div around canvas. Optional, default is "stage".
 
 Example:
 
-[3D width="600" height="400" background="436523" model="dummy1.dae" camera="50,50,300" model-position="2,2,2" model-scale="2,2,2" ambient="BBBBBB" directional="1,1,0:FFFF44"]
+[3D width="600" height="400" background="436523" opacity="0.5" model="dummy1.dae" camera="50,50,300" model-position="2,2,2" model-scale="2,2,2" ambient="BBBBBB" directional="1,1,0:FFFF44" class="3d" style="float: right" id="coffee"]
 
 
 
@@ -52,6 +56,9 @@ None yet.
 1. The plugin in action
 
 == Changelog ==
+
+= 1.1 =
+* CSS class and style and id for more than one stage on a page.
 
 = 1.0.0 =
 First version of the 3D plugin.
