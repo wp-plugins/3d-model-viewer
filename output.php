@@ -56,13 +56,18 @@
 	});
 
 
-
-	
+    var fps = <?php echo $fps ?>;
+	var lastRendered = Date.now();
 	
 	function render() {
 		requestAnimationFrame( render );
 
-		renderer.render( scene, camera );
+	    delta = Date.now() - lastRendered;
+	    if (delta > 1000/fps) {
+	    	lastRendered = Date.now();
+    		renderer.render( scene, camera );
+	    }
+		
 	}
 	render();		
 </script>

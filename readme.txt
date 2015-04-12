@@ -4,7 +4,7 @@ Donate link: http://www.joergviola.de
 Tags: 3d, webgl, threejs, 3d model display, 3D model viewer, 3D Model Viewer WordPress, dae viewer
 Requires at least: 4.0.0
 Tested up to: 4.1.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,10 +40,11 @@ Here are the arguments to this short code:
 * class: CSS class of div around canvas. Optional, no default.
 * style: CSS style of div around canvas. Optional, no default.
 * id: id of div around canvas. Optional, default is "stage".
+* fps: Number of animation frames per second. Optional, default is 30.
 
 Example:
 
-[3D width="600" height="400" background="436523" opacity="0.5" model="dummy1.dae" camera="50,50,300" model-position="2,2,2" model-scale="2,2,2" ambient="BBBBBB" directional="1,1,0:FFFF44" class="3d" style="float: right" id="coffee"]
+[3D width="600" height="400" background="436523" opacity="0.5" model="dummy1.dae" camera="50,50,300" model-position="2,2,2" model-scale="2,2,2" ambient="BBBBBB" directional="1,1,0:FFFF44" class="3d" style="float: right" id="coffee" fps=20]
 
 
 
@@ -56,6 +57,9 @@ None yet.
 1. The plugin in action
 
 == Changelog ==
+
+= 1.2 =
+* Performance after moving camera optimized.
 
 = 1.1 =
 * CSS class and style and parameters.

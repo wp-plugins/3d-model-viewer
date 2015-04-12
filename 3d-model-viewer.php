@@ -4,7 +4,7 @@
  * Plugin Name: 3D Model Viewer
  * Plugin URI: https://wordpress.org/plugins/3d-model-viewer/
  * Description: The first live 3D plugin for wordpress
- * Version: 1.1
+ * Version: 1.2
  * Author: Joerg Viola
  * Author URI: http://www.joergviola.de
  */
@@ -65,6 +65,7 @@ class WP_3D {
 		$cssClass = self::get($atts['class']);
 		$cssStyle = self::get($atts['style']);
 		$id = self::get($atts['id'], 'stage');
+		$fps = self::get($atts['fps'], 30);
 		
 		global $wpdb, $post;
 		$result = $wpdb->get_col($wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE guid LIKE '%%%s' and post_parent=%d;", $atts['model'], $post->ID ));
