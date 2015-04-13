@@ -23,6 +23,10 @@ Please file a request for other required file formats.
 The 3D stage is highly configurable: Define background, ambient or directional light 
 as well as the cameras and your models position and scale.
 
+For a good application example, [look here](http://openbuilds.com.mx/tienda_de_openbuilds_mexico/guia-lineal-v-slot/#) (thanks to Ronald van Arkel):
+
+
+
 == Installation ==
 
 Install this plugin from the wordpress plugin directory as usual and activate it.
@@ -30,7 +34,7 @@ Add the shortcode [3D], wherever you want your model to appear.
 Here are the arguments to this short code:
 
 * model: name of the model file in the media gallery. Mandatory. 
-* width, height: Size of the 3d stage. Optional, default is 500x300.
+* width, height: Size of the 3d stage. If in percent, then relative to the size of the div around the canvas. Optional, default is 500x300.
 * background: Background color. Optional, default is "ffffff".
 * opacity: Background opacity. Optional, default is 1.
 * ambient: Color of ambient light. Optional, default is "404040".
@@ -57,6 +61,9 @@ None yet.
 1. The plugin in action
 
 == Changelog ==
+
+= 1.3 =
+* width and size can be reltaive to the size of the div around the canvas (which in turn can be set via CSS). 
 
 = 1.2 =
 * Performance after moving camera optimized.

@@ -2,11 +2,25 @@
 <div id="<?php echo $id ?>"<?php if ($cssClass) echo ' class="'.$cssClass.'"'?><?php if ($cssStyle) echo ' style="'.$cssStyle.'"'?>></div>
 
 <script>
+
     stage = document.getElementById("<?php echo $id ?>");  
 
-	width = <?php echo $width ?>;
-	height = <?php echo $height ?>;
-	
+    width = 0;
+    pWidth = "<?php echo $width ?>";
+    if (pWidth.indexOf('%')==pWidth.length-1) {
+        width = stage.offsetWidth * parseInt(pWidth) / 100;
+    } else {
+        width = parseInt(pWidth);
+    }
+
+    height = 0;
+    pHeight = "<?php echo $height ?>";
+    if (pHeight.indexOf('%')==pHeight.length-1) {
+    	height = stage.offsetHeight * parseInt(pHeight) / 100;
+    } else {
+    	height = parseInt(pHeight);
+    }
+    
 	var scene = new THREE.Scene();
 	var camera = new THREE.PerspectiveCamera( 75, width / height, 0.1, 1000 );
 	camera.position.x = <?php echo $camera[0] ?>;
