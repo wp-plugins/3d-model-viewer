@@ -35,6 +35,8 @@ class WP_3D {
 	function add_custom_mime_types($mimes){
 		return array_merge($mimes,array (
 			'dae' => 'model/vnd.collada+xml',
+			'obj' => 'text/plain',
+			'mtl' => 'text/plain',
 		));
 	}
 		
@@ -47,30 +49,36 @@ class WP_3D {
 		wp_enqueue_script('obj-loader');
 		wp_register_script('orbital', plugins_url('js/controls/OrbitControls.js', __FILE__), array(),'1.1', false);
 		wp_enqueue_script('orbital');
+		wp_register_script('wp3d', plugins_url('js/3d-model-viewer.js', __FILE__), array(),'1.1', false);
+		wp_enqueue_script('wp3d');
 	}
 	
 	
 	// The 3D shortcode
 	public function shortcode_3d($atts, $content = null) {
-		$width = self::get($atts['width'], '500');
-		$height = self::get($atts['height'], '300');
-		$background = self::get($atts['background'], 'ffffff');
-		$opacity = self::get($atts['opacity'], 1);
-		$modelPosition = self::get($atts['model-position'], '0,0,0');
-		$modelScale = self::get($atts['model-scale'], '1,1,1');
-		$ambient = self::get($atts['ambient'], '404040');
-		$directional = explode(':', self::get($atts['directional'], '1,1,1:ffffff'));
-		$directionalPosition = $directional[0];
-		$directionalColor = $directional[1];
-		$cssClass = self::get($atts['class']);
-		$cssStyle = self::get($atts['style']);
-		$id = self::get($atts['id'], 'stage');
-		$fps = self::get($atts['fps'], 30);
-		
 		global $wpdb, $post;
+	    
 		$result = $wpdb->get_col($wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE guid LIKE '%%%s' and post_parent=%d;", $atts['model'], $post->ID ));
 		$model = $result[0];
-		$camera = self::createVector($atts['camera'], '50,50,30');
+		
+    	$directional = explode(':', self::get($atts['directional'], '1,1,1:ffffff'));
+    	
+		$options = array(
+    		'width' => self::get($atts['width'], '500'),
+    		'height' => self::get($atts['height'], '300'),
+    		'background' => self::get($atts['background'], 'ffffff'),
+    		'opacity' => self::get($atts['opacity'], 1),
+    		'modelPosition' => self::createVector($atts['model-position'], '0,0,0'),
+    		'modelScale' => self::createVector($atts['model-scale'], '1,1,1'),
+    		'ambient' => hexdec(self::get($atts['ambient'], '404040')),
+    		'directionalPosition' => self::createVector($directional[0]),
+    		'directionalColor' => hexdec($directional[1]),
+    		'cssClass' => self::get($atts['class']),
+    		'cssStyle' => self::get($atts['style']),
+    		'id' => self::get($atts['id'], 'stage'),
+    		'fps' => self::get($atts['fps'], 30),
+		    'camera' => self::createVector($atts['camera'], '50,50,30'),
+	    );		
 		
 		ob_start();
 		require('output.php');
@@ -83,7 +91,11 @@ class WP_3D {
 	
 	private static function createVector(&$string, $default="0,0,0") {
 	    $string = self::get($string, $default);
-	    return explode(',', $string);
+	    $array = explode(',', $string);
+	    $result = array();
+	    foreach ($array as $coord)
+	        $result[] = (int) $coord;
+	    return $result;
 	}
 }
 
