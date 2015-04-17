@@ -35,8 +35,9 @@ class WP_3D {
 	function add_custom_mime_types($mimes){
 		return array_merge($mimes,array (
 			'dae' => 'model/vnd.collada+xml',
+			'objmtl' => 'text/plain',
 			'obj' => 'text/plain',
-			'mtl' => 'text/plain',
+		    'mtl' => 'text/plain',
 		));
 	}
 		

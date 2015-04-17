@@ -49,6 +49,8 @@ function WP3D(model, options) {
 			this.loadDAE(model, options);
 		else if (this.endsWith(model, '.obj'))
 			this.loadOBJ(model, options);
+		else if (this.endsWith(model, '.objmtl'))
+			this.loadOBJMTL(model, options);
 		
 		dirty = true;
 	}
@@ -58,6 +60,7 @@ function WP3D(model, options) {
 	}
 	
 	this.loadDAE = function(model, options) {
+		console.log('loading DAE');
 		var loader = new THREE.ColladaLoader();
 		loader.options.convertUpAxis = true;
 		var loadScene = this.scene;
@@ -73,8 +76,19 @@ function WP3D(model, options) {
 
 	this.loadOBJ = function(model, options) {
 		console.log('loading OBJ');
+		var loader = new THREE.OBJLoader();
+		var loadScene = this.scene;
+		loader.load( model, function ( object ) {
+			object.position.set(options.modelPosition[0],options.modelPosition[1],options.modelPosition[2]);//x,z,y- if you think in blender dimensions ;)
+			object.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
+			loadScene.add( object );
+		});
+	}
+
+	this.loadOBJMTL = function(model, options) {
+		console.log('loading OBJMTL');
 		var loader = new THREE.OBJMTLLoader();
-		mtl = model.substring(0, model.length-3) + 'mtl';
+		mtl = model.substring(0, model.length-6) + 'mtl';
 		var loadScene = this.scene;
 		loader.load( model, mtl, function ( object ) {
 			object.position.set(options.modelPosition[0],options.modelPosition[1],options.modelPosition[2]);//x,z,y- if you think in blender dimensions ;)
