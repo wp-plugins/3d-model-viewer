@@ -4,7 +4,7 @@ Donate link: http://www.joergviola.de
 Tags: 3d, webgl, threejs, 3d model display, 3D model viewer, 3D Model Viewer WordPress, dae viewer
 Requires at least: 4.0.0
 Tested up to: 4.1.1
-Stable tag: 1.4
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,7 +63,7 @@ None yet.
 
 == Changelog ==
 
-= 1.4 =
+= 1.5 =
 * OBJ and OBJMTL format supported.
 * Performance tuning: Renders only on demand. 
 
