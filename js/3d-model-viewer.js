@@ -42,22 +42,22 @@ function WP3D(model, options) {
 		controls = new THREE.OrbitControls( this.camera, stage );
 		controls.damping = 0.2;
 		controls.addEventListener( 'change', setDirty );
-	
 		
-		var manager = new THREE.LoadingManager();
-		manager.onProgress = function ( item, loaded, total ) {
-			console.log( item, loaded, total );
-		};
-		var onProgress = function ( xhr ) {
-			if ( xhr.lengthComputable ) {
-				var percentComplete = xhr.loaded / xhr.total * 100;
-				console.log( Math.round(percentComplete, 2) + '% downloaded' );
-			}
-		};
-		var onError = function ( xhr ) {
-			alert("Sorry, could not load the model.");
-		};
-		var texture = new THREE.Texture();
+		console.log(model);
+		
+		if (this.endsWith(model, '.dae'))
+			this.loadDAE(model, options);
+		else if (this.endsWith(model, '.obj'))
+			this.loadOBJ(model, options);
+		
+		dirty = true;
+	}
+
+	this.endsWith = function(str, suffix) {
+	    return str.toLowerCase().indexOf(suffix.toLowerCase(), str.length - suffix.length) !== -1;
+	}
+	
+	this.loadDAE = function(model, options) {
 		var loader = new THREE.ColladaLoader();
 		loader.options.convertUpAxis = true;
 		var loadScene = this.scene;
@@ -69,7 +69,18 @@ function WP3D(model, options) {
 	
 		  loadScene.add(dae);
 		});
-		
+	}
+
+	this.loadOBJ = function(model, options) {
+		console.log('loading OBJ');
+		var loader = new THREE.OBJMTLLoader();
+		mtl = model.substring(0, model.length-3) + 'mtl';
+		var loadScene = this.scene;
+		loader.load( model, mtl, function ( object ) {
+			object.position.set(options.modelPosition[0],options.modelPosition[1],options.modelPosition[2]);//x,z,y- if you think in blender dimensions ;)
+			object.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
+			loadScene.add( object );
+		});
 	}
 	
 	
@@ -85,7 +96,6 @@ lastRendered = Date.now();
 dirty = true;
 
 function setDirty() {
-	console.log("Dirty!");
 	dirty = true;
 }
 
@@ -98,7 +108,6 @@ function render() {
     	lastRendered = Date.now();
     	wp3d.render();
     	dirty = false;
-    	console.log("Rendering");
     }
 	
 }

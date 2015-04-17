@@ -47,6 +47,10 @@ class WP_3D {
 		wp_enqueue_script('collada-loader');
 		wp_register_script('obj-loader', plugins_url('js/loaders/OBJLoader.js', __FILE__), array(),'1.1', false);
 		wp_enqueue_script('obj-loader');
+		wp_register_script('mtl-loader', plugins_url('js/loaders/MTLLoader.js', __FILE__), array(),'1.1', false);
+		wp_enqueue_script('mtl-loader');
+		wp_register_script('objmtl-loader', plugins_url('js/loaders/OBJMTLLoader.js', __FILE__), array(),'1.1', false);
+		wp_enqueue_script('objmtl-loader');
 		wp_register_script('orbital', plugins_url('js/controls/OrbitControls.js', __FILE__), array(),'1.1', false);
 		wp_enqueue_script('orbital');
 		wp_register_script('wp3d', plugins_url('js/3d-model-viewer.js', __FILE__), array(),'1.1', false);
