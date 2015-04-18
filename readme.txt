@@ -4,7 +4,7 @@ Donate link: http://www.joergviola.de
 Tags: 3d, webgl, threejs, 3d model display, 3D model viewer, 3D Model Viewer WordPress, dae viewer
 Requires at least: 4.0.0
 Tested up to: 4.1.1
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,11 @@ None yet.
 1. The plugin in action
 
 == Changelog ==
+
+= 1.6 =
+* Bugfix: Show model without interaction. Timing problem fixed. (I hope;-)
+* Only load scripts when 3D shortcode present on page.
+* Show uploaded models in media manager
 
 = 1.5 =
 * OBJ and OBJMTL format supported.

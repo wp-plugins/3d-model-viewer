@@ -4,7 +4,7 @@
  * Plugin Name: 3D Model Viewer
  * Plugin URI: https://wordpress.org/plugins/3d-model-viewer/
  * Description: The first live 3D plugin for wordpress
- * Version: 1.5
+ * Version: 1.6
  * Author: Joerg Viola
  * Author URI: http://www.joergviola.de
  */
@@ -20,6 +20,9 @@ class WP_3D {
 		add_filter('mime_types',array('WP_3D', 'add_custom_mime_types'));
 		add_action('init', array(__CLASS__, 'register_scripts'));
 		add_action('wp_footer', array(__CLASS__, 'print_scripts'));
+        add_filter( 'ajax_query_attachments_args', array(__CLASS__,'show_model_attachments'), 10, 1 );
+        
+		
 	}
 	
 	// Activate the plugin
@@ -35,6 +38,11 @@ class WP_3D {
 		// Do nothing so far ;)
 	}
 	
+	function show_model_attachments( $query = array() ) {
+	    //unset($query['post_mime_type']);
+	    $query['post_mime_type'] = array('image', 'text', 'model');
+	    return $query;
+	}
 	function add_custom_mime_types($mimes){
 		return array_merge($mimes,array (
 			'dae' => 'model/vnd.collada+xml',
