@@ -11,12 +11,15 @@
 
 
 class WP_3D {
-	
+    // Conditional script adding: http://scribu.net/wordpress/optimal-script-loading.html
+    static $add_script = false;
+    
 	// Constructor
 	public function __construct() {
 		add_shortcode( '3D', array('WP_3D', 'shortcode_3d') );
-		add_action( 'wp_enqueue_scripts', array('WP_3D', 'add_scripts') );
 		add_filter('mime_types',array('WP_3D', 'add_custom_mime_types'));
+		add_action('init', array(__CLASS__, 'register_scripts'));
+		add_action('wp_footer', array(__CLASS__, 'print_scripts'));
 	}
 	
 	// Activate the plugin
@@ -41,28 +44,36 @@ class WP_3D {
 		));
 	}
 		
-	public function add_scripts() {
+	public function register_scripts() {
 		wp_register_script('threejs', plugins_url('js/three.min.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('threejs');
 		wp_register_script('collada-loader', plugins_url('js/loaders/ColladaLoader.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('collada-loader');
 		wp_register_script('obj-loader', plugins_url('js/loaders/OBJLoader.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('obj-loader');
 		wp_register_script('mtl-loader', plugins_url('js/loaders/MTLLoader.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('mtl-loader');
 		wp_register_script('objmtl-loader', plugins_url('js/loaders/OBJMTLLoader.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('objmtl-loader');
 		wp_register_script('orbital', plugins_url('js/controls/OrbitControls.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('orbital');
 		wp_register_script('wp3d', plugins_url('js/3d-model-viewer.js', __FILE__), array(),'1.1', false);
-		wp_enqueue_script('wp3d');
+	}
+	
+	public function print_scripts() {
+		if ( ! self::$add_script )
+			return;
+
+		wp_print_scripts('my-script');
+	    wp_print_scripts('threejs');
+	    wp_print_scripts('collada-loader');
+	    wp_print_scripts('obj-loader');
+	    wp_print_scripts('mtl-loader');
+	    wp_print_scripts('objmtl-loader');
+	    wp_print_scripts('orbital');
+	    wp_print_scripts('wp3d');
 	}
 	
 	
 	// The 3D shortcode
 	public function shortcode_3d($atts, $content = null) {
-		global $wpdb, $post;
-	    
+	    global $wpdb, $post;
+	    self::$add_script = true;
+	     
 		$result = $wpdb->get_col($wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE guid LIKE '%%%s' and post_parent=%d;", $atts['model'], $post->ID ));
 		$model = $result[0];
 		

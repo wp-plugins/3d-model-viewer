@@ -3,10 +3,14 @@
 
 <script>
 
+var wp3d = null;
+
+window.onload = function() {
     options = <?php echo json_encode($options) ?>;
 
-    var wp3d = new WP3D('<?php echo $model ?>', options);
+    wp3d = new WP3D('<?php echo $model ?>', options);
 
     render();
+}
 </script>
 

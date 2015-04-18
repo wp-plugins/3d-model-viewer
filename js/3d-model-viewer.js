@@ -71,6 +71,7 @@ function WP3D(model, options) {
 	
 		  loadScene.add(dae);
 		  dirty = true;
+			console.log('object loaded');
 		});
 	}
 
@@ -83,6 +84,7 @@ function WP3D(model, options) {
 			object.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
 			loadScene.add( object );
 			dirty = true;
+			console.log('object loaded');
 		});
 	}
 
@@ -96,6 +98,7 @@ function WP3D(model, options) {
 			object.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
 			loadScene.add( object );
 			dirty = true;
+			console.log('object loaded');
 		});
 	}
 	
