@@ -52,7 +52,6 @@ function WP3D(model, options) {
 		else if (this.endsWith(model, '.objmtl'))
 			this.loadOBJMTL(model, options);
 		
-		dirty = true;
 	}
 
 	this.endsWith = function(str, suffix) {
@@ -71,6 +70,7 @@ function WP3D(model, options) {
 		  dae.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
 	
 		  loadScene.add(dae);
+		  dirty = true;
 		});
 	}
 
@@ -82,6 +82,7 @@ function WP3D(model, options) {
 			object.position.set(options.modelPosition[0],options.modelPosition[1],options.modelPosition[2]);//x,z,y- if you think in blender dimensions ;)
 			object.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
 			loadScene.add( object );
+			dirty = true;
 		});
 	}
 
@@ -94,6 +95,7 @@ function WP3D(model, options) {
 			object.position.set(options.modelPosition[0],options.modelPosition[1],options.modelPosition[2]);//x,z,y- if you think in blender dimensions ;)
 			object.scale.set(options.modelScale[0],options.modelScale[1],options.modelScale[2]);
 			loadScene.add( object );
+			dirty = true;
 		});
 	}
 	
