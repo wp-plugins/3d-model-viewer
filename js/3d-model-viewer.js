@@ -3,12 +3,12 @@
 function WP3D(model, options) {
 
 	this.init = function(model, options) {
-	    stage = document.getElementById(options.id);  
-	
+	    this.stage = document.getElementById(options.id);  
+	    
 	    width = 0;
 	    pWidth = options.width;
 	    if (pWidth.indexOf('%')==pWidth.length-1) {
-	        width = stage.offsetWidth * parseInt(pWidth) / 100;
+	        width = this.stage.offsetWidth * parseInt(pWidth) / 100;
 	    } else {
 	        width = parseInt(pWidth);
 	    }
@@ -16,7 +16,7 @@ function WP3D(model, options) {
 	    height = 0;
 	    pHeight = options.height;
 	    if (pHeight.indexOf('%')==pHeight.length-1) {
-	    	height = stage.offsetHeight * parseInt(pHeight) / 100;
+	    	height = this.stage.offsetHeight * parseInt(pHeight) / 100;
 	    } else {
 	    	height = parseInt(pHeight);
 	    }
@@ -30,7 +30,7 @@ function WP3D(model, options) {
 		this.renderer = new THREE.WebGLRenderer({ alpha: true });
 		this.renderer.setSize( width, height );
 		this.renderer.setClearColor( options.background, options.opacity);
-		stage.appendChild( this.renderer.domElement );	 
+		this.stage.appendChild( this.renderer.domElement );	 
 	
 		var directionalLight = new THREE.DirectionalLight( options.directionalColor, 1 );
 		directionalLight.position.set( options.directionalPosition[0], options.directionalPosition[1], options.directionalPosition[2] );
@@ -39,7 +39,7 @@ function WP3D(model, options) {
 		var light = new THREE.AmbientLight( options.ambient ); // soft white light
 		this.scene.add( light );
 		
-		controls = new THREE.OrbitControls( this.camera, stage );
+		controls = new THREE.OrbitControls( this.camera, this.stage );
 		controls.damping = 0.2;
 		controls.addEventListener( 'change', setDirty );
 		
@@ -58,6 +58,17 @@ function WP3D(model, options) {
 	    return str.toLowerCase().indexOf(suffix.toLowerCase(), str.length - suffix.length) !== -1;
 	}
 	
+	this.progress = function(event) {
+		loaded = event.loaded;
+		total = event.total;
+		console.log(loaded + " of "+total);
+	}
+	
+	this.failure = function() {
+		this.stage.innerHTML = 'Could not load model.';
+		console.log('Could not load model.');
+	}
+	
 	this.loadDAE = function(model, options) {
 		console.log('loading DAE');
 		var loader = new THREE.ColladaLoader();
@@ -72,7 +83,7 @@ function WP3D(model, options) {
 		  loadScene.add(dae);
 		  dirty = true;
 			console.log('object loaded');
-		});
+		}, this.progress, this.failure);
 	}
 
 	this.loadOBJ = function(model, options) {
@@ -85,7 +96,7 @@ function WP3D(model, options) {
 			loadScene.add( object );
 			dirty = true;
 			console.log('object loaded');
-		});
+		}, this.progress, this.failure);
 	}
 
 	this.loadOBJMTL = function(model, options) {
@@ -99,7 +110,7 @@ function WP3D(model, options) {
 			loadScene.add( object );
 			dirty = true;
 			console.log('object loaded');
-		});
+		}, this.progress, this.failure);
 	}
 	
 	

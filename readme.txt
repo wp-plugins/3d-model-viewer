@@ -3,8 +3,8 @@ Contributors: joergviola
 Donate link: http://www.joergviola.de
 Tags: 3d, webgl, threejs, 3d model display, 3D model viewer, 3D Model Viewer WordPress, dae viewer
 Requires at least: 4.0.0
-Tested up to: 4.1.1
-Stable tag: 1.6
+Tested up to: 4.2
+Stable tag: 1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,6 @@ Simply upload the model and all files references (eg. textures) to the wordpress
 add a shortcode to the page where the model should be shown and there you go. 
 
 Currently, Collada DAE and OBJ and OBJ/MTL files are supported.
-(If you have an MTL file, rename your obj file to objmtl before uploading to reflect that.)
 Please file a request for other required file formats.
 
 The 3D stage is highly configurable: Define background, ambient or directional light 
@@ -34,7 +33,7 @@ Install this plugin from the wordpress plugin directory as usual and activate it
 Add the shortcode [3D], wherever you want your model to appear.
 Here are the arguments to this short code:
 
-* model: name of the model file in the media gallery. Mandatory. Use *.objmtl if you want OBJ/MTL and name the MTL file exaclty as the OBJMTL file.
+* model: name of the model file in the media gallery or full URL. Mandatory. Use *.objmtl if you want OBJ/MTL and name the MTL file exaclty as the OBJMTL file.
 * width, height: Size of the 3d stage. If in percent, then relative to the size of the div around the canvas. Optional, default is 500x300.
 * background: Background color. Optional, default is "ffffff".
 * opacity: Background opacity. Optional, default is 1.
@@ -62,6 +61,9 @@ None yet.
 1. The plugin in action
 
 == Changelog ==
+
+= 1.7 =
+* Find models not attached to page or when full URL is given
 
 = 1.6 =
 * Bugfix: Show model without interaction. Timing problem fixed. (I hope;-)
